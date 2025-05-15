@@ -23,20 +23,29 @@ def generar_arreglos_worst_case(n):
         result.append(lista)
     return result
 
+def generar_diagrama(sizes, times):
+    # Gráfico
+    plt.plot(sizes, times, marker='o', color='blue', label='Insertion Sort')
+    plt.title("Tiempos de ejecución de Insertion Sort")
+    plt.xlabel("Tamaño del arreglo")
+    plt.ylabel("Tiempo (segundos)")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
 if __name__ == "__main__":
     n = sys.argv[1]
     #generar los arrays de tamaños recibidos por el computador
-    arreglos = generar_arreglos_worst_case(int(n))
+    arreglos_peor_caso = generar_arreglos_worst_case(int(n))
     tiempos = []
-    print(arreglos)
-    for i in arreglos:
+    sizes = []
+    total_time = 0
+    for i in arreglos_peor_caso:
         inicio = time.time()
         insertion_sort(i)
         fin = time.time()
         tiempos.append(fin-inicio)
-    #insertion_sort(numbers_worst_case)
-    print("Arreglados \n:")
-    print(arreglos)
-    print("Tiempos tomado para ordenar cada arreglo: \n")
-    for t in tiempos:
-        print(f"{t:.10f}")
+        sizes.append(len(i))
+        total_time+=(fin-inicio)
+    print(total_time)
+    generar_diagrama(sizes, tiempos)
