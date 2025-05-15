@@ -40,6 +40,15 @@ def generar_arreglos_average_case(n):
         result.append(lista)
     return result
 
+def calcular_tiempos(arreglo):
+    tiempos = []
+    for i in arreglo:
+        inicio = time.time()
+        insertion_sort(i)
+        fin = time.time()
+        tiempos.append(fin-inicio)
+    return tiempos
+
 def generar_diagrama(sizes, times):
     # Gráfico
     plt.plot(sizes, times, marker='o', color='blue', label='Insertion Sort')
@@ -50,24 +59,34 @@ def generar_diagrama(sizes, times):
     plt.legend()
     plt.tight_layout()
     plt.show()
+
+def generar_diagrama_total(sizes, average_case_times, best_case_times,worst_case_times):
+    # Crear el gráfico
+    plt.plot(sizes, average_case_times, marker='o', color='blue', label='Caso promedio')
+    plt.plot(sizes, best_case_times, marker='o', color='green', label='Mejor caso')
+    plt.plot(sizes, worst_case_times, marker='o', color='red', label='Peor caso')
+
+    plt.title("Tiempos de ejecución de Insertion Sort")
+    plt.xlabel("Tamaño del arreglo")
+    plt.ylabel("Tiempo (segundos)")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
 if __name__ == "__main__":
     n = sys.argv[1]
     #generar los arrays de tamaños recibidos por el computador
-    #arreglos_peor_caso = generar_arreglos_worst_case(int(n))
-    #arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
+    
+    arreglos_peor_caso = generar_arreglos_worst_case(int(n))
+    arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
     arreglos_caso_promedio = generar_arreglos_average_case(int(n))
-    tiempos = []
-    sizes = []
-    total_time = 0
-    print(arreglos_caso_promedio)
-    for i in arreglos_caso_promedio:
-        inicio = time.time()
-        insertion_sort(i)
-        fin = time.time()
-        tiempos.append(fin-inicio)
-        sizes.append(len(i))
-        total_time+=(fin-inicio)
-    print(arreglos_caso_promedio)
-    print(total_time)
-    print(tiempos)
-    generar_diagrama(sizes, tiempos)
+
+    sizes = list(range(1, int(n) + 1))
+    
+    average_case_times = calcular_tiempos(arreglos_caso_promedio)
+    best_case_times = calcular_tiempos(arreglos_mejor_caso)
+    worst_case_times = calcular_tiempos(arreglos_peor_caso)
+
+    #generar_diagrama(sizes, best_case_times)
+    generar_diagrama_total(sizes, average_case_times, best_case_times, worst_case_times)
