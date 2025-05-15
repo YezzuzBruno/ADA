@@ -27,6 +27,16 @@ if __name__ == "__main__":
     n = sys.argv[1]
     #generar los arrays de tamaños recibidos por el computador
     arreglos = generar_arreglos_worst_case(int(n))
+    tiempos = []
     print(arreglos)
+    for i in arreglos:
+        inicio = time.time()
+        insertion_sort(i)
+        fin = time.time()
+        tiempos.append(fin-inicio)
     #insertion_sort(numbers_worst_case)
-
+    print("Arreglados \n:")
+    print(arreglos)
+    print("Tiempos tomado para ordenar cada arreglo: \n")
+    for t in tiempos:
+        print(f"{t:.10f}")
