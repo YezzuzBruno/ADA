@@ -31,6 +31,15 @@ def generar_arreglos_best_case(n):
         result.append(lista)
     return result
 
+def generar_arreglos_average_case(n):
+    result = []
+    for i in range(1,n+1):
+        lista = []
+        for j in range(0, i):
+            lista.append(random.randint(1,n))
+        result.append(lista)
+    return result
+
 def generar_diagrama(sizes, times):
     # Gráfico
     plt.plot(sizes, times, marker='o', color='blue', label='Insertion Sort')
@@ -45,17 +54,20 @@ if __name__ == "__main__":
     n = sys.argv[1]
     #generar los arrays de tamaños recibidos por el computador
     #arreglos_peor_caso = generar_arreglos_worst_case(int(n))
-    arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
+    #arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
+    arreglos_caso_promedio = generar_arreglos_average_case(int(n))
     tiempos = []
     sizes = []
     total_time = 0
-    for i in arreglos_mejor_caso:
+    print(arreglos_caso_promedio)
+    for i in arreglos_caso_promedio:
         inicio = time.time()
         insertion_sort(i)
         fin = time.time()
         tiempos.append(fin-inicio)
         sizes.append(len(i))
         total_time+=(fin-inicio)
+    print(arreglos_caso_promedio)
     print(total_time)
     print(tiempos)
     generar_diagrama(sizes, tiempos)
