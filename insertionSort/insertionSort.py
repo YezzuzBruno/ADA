@@ -14,12 +14,20 @@ def insertion_sort(arr):
         arr[j + 1] = key
 
 def generar_arreglos_worst_case(n):
-    print(n)
     result = []
     for i in range (0, n):
         lista = []
         for j in range(i,-1,-1):
             lista.append(j+1)
+        result.append(lista)
+    return result
+
+def generar_arreglos_best_case(n):
+    result = []
+    for i in range (1, n+1):
+        lista = []
+        for j in range(1, i+1):
+            lista.append(j)
         result.append(lista)
     return result
 
@@ -36,11 +44,12 @@ def generar_diagrama(sizes, times):
 if __name__ == "__main__":
     n = sys.argv[1]
     #generar los arrays de tamaños recibidos por el computador
-    arreglos_peor_caso = generar_arreglos_worst_case(int(n))
+    #arreglos_peor_caso = generar_arreglos_worst_case(int(n))
+    arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
     tiempos = []
     sizes = []
     total_time = 0
-    for i in arreglos_peor_caso:
+    for i in arreglos_mejor_caso:
         inicio = time.time()
         insertion_sort(i)
         fin = time.time()
@@ -48,4 +57,5 @@ if __name__ == "__main__":
         sizes.append(len(i))
         total_time+=(fin-inicio)
     print(total_time)
+    print(tiempos)
     generar_diagrama(sizes, tiempos)
