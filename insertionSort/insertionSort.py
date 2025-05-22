@@ -15,7 +15,7 @@ def insertion_sort(arr):
 
 def generar_arreglos_worst_case(n):
     result = []
-    for i in range (0, n):
+    for i in range (0, n, 100):
         lista = []
         for j in range(i,-1,-1):
             lista.append(j+1)
@@ -51,7 +51,8 @@ def calcular_tiempos(arreglo):
 
 def generar_diagrama(sizes, times):
     # Gráfico
-    plt.plot(sizes, times, marker='o', color='blue', label='Insertion Sort')
+    plt.figure(figsize=(12,6))
+    plt.plot(sizes, times, color='blue', label='Insertion Sort')
     plt.title("Tiempos de ejecución de Insertion Sort")
     plt.xlabel("Tamaño del arreglo")
     plt.ylabel("Tiempo (segundos)")
@@ -79,14 +80,15 @@ if __name__ == "__main__":
     #generar los arrays de tamaños recibidos por el computador
     
     arreglos_peor_caso = generar_arreglos_worst_case(int(n))
-    arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
-    arreglos_caso_promedio = generar_arreglos_average_case(int(n))
+    #arreglos_mejor_caso =  generar_arreglos_best_case(int(n))
+    #arreglos_caso_promedio = generar_arreglos_average_case(int(n))
 
-    sizes = list(range(1, int(n) + 1))
+    sizes = list(range(100, int(n)+1, 100))
     
-    average_case_times = calcular_tiempos(arreglos_caso_promedio)
-    best_case_times = calcular_tiempos(arreglos_mejor_caso)
+    #average_case_times = calcular_tiempos(arreglos_caso_promedio)
+    #best_case_times = calcular_tiempos(arreglos_mejor_caso)
     worst_case_times = calcular_tiempos(arreglos_peor_caso)
-
-    #generar_diagrama(sizes, best_case_times)
-    generar_diagrama_total(sizes, average_case_times, best_case_times, worst_case_times)
+    print(len(sizes))
+    print(len(worst_case_times))
+    generar_diagrama(sizes, worst_case_times)
+    #generar_diagrama_total(sizes, average_case_times, best_case_times, worst_case_times)
