@@ -10,8 +10,10 @@ def generar_diagrama():
             datos = json.loads(line)
             if datos["tipo"] == "Mejor Caso":
                 plt.plot(datos["sizes"], datos["times"], 'g-', label='Mejor Caso (Ordenado)')
-            elif datos["tipo"] == "Peor Caso":
+            if datos["tipo"] == "Peor Caso":
                 plt.plot(datos["sizes"], datos["times"], 'r-', label='Peor Caso (Invertido)')
+            elif datos["tipo"] == "Caso Promedio":
+                plt.plot(datos["sizes"], datos["times"], 'b-', label='Caso Promedio')
     
     plt.title("Tiempos de ejecución de Insertion Sort")
     plt.xlabel("Tamaño del arreglo")
